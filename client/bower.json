@@ -1,0 +1,21 @@
+{
+  "name": "AffableBean_Client",
+  "version": "1.0.0",
+  "homepage": "https://github.com/pjiricka/affablebean-maven-grunt",
+  "authors": [
+    "Petr Jiricka <petr.jiricka@oracle.com>"
+  ],
+  "description": "AffableBean Client Project",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
