@@ -1,19 +1,13 @@
-module.exports = function(grunt) {
+'use strict';
 
-    // load all NPM modules from the parent project
-    grunt.file.expand(['node_modules/grunt-*/tasks'])
-            .concat(grunt.file.expand(['build/grunt/custom_modules']))
-            .forEach(grunt.loadTasks);
+module.exports = function (grunt) {
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-    require('time-grunt')(grunt);
+    var config = {};
 
-    // Initialize configurations.
-    grunt.initConfig({
-      'pkg': require('./package.json'),
-      'cfg': require('./config/public.json')
-    }); 
-    
-    // Load all per-task configs from the folder.
-    grunt.loadTasks('build/grunt');
- 
+    grunt.initConfig(config);
+
+    var tasks = [];
+
+    grunt.registerTask('build', tasks);
 };
