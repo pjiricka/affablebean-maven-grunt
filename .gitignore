@@ -2,3 +2,11 @@ client/nbproject/private/
 client/node_modules
 client/public_html/bower_components
 client/dist
+
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+server/target/
