@@ -13,13 +13,13 @@ angular.module('affableBeanApp.services', ['ngResource']);
 
 // fetch products for shopping department service; online version:
 angular.module('affableBeanApp.services').factory('Shop', function($resource){
-  return $resource('http://localhost\::port/AffableBean/rest/department/:departmentId', 
+  return $resource('http://localhost\::port/server/rest/department/:departmentId', 
             {departmentId:'@departmentId', port:8080}, {});
 });
 
 // make purchase service:
 angular.module('affableBeanApp.services').factory('Purchase', function($resource){
-  return $resource('http://localhost\::port/AffableBean/rest/purchase/', 
+  return $resource('http://localhost\::port/server/rest/purchase/', 
             {port:8080}, {});
 });
 
