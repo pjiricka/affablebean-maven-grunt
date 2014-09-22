@@ -19,6 +19,7 @@ public class ApplicationResource extends Application {
      */
     private Set<Class<?>> getRestResourceClasses() {
         Set<Class<?>> resources = new java.util.HashSet<Class<?>>();
+        resources.add(filter.CrossOriginResourceSharingFilter.class);
         resources.add(rest.DepartmentService.class);
         resources.add(rest.PurchaseService.class);
 //        try {
