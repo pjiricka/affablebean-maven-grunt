@@ -49,6 +49,16 @@ module.exports = function (grunt) {
       },
       html: ['dist/{,*/}*.html']
     };
+    
+    config['concat'] = {
+        options: {
+          separator: ';',
+        },
+        dist: {
+          src: ['public_html/js/{,*/}*.js'],
+          dest: 'dist/built.js',
+        },
+      };
 
     config['uglify'] = {
       options: {
