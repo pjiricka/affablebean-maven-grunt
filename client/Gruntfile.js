@@ -5,7 +5,7 @@ module.exports = function (grunt) {
     // Time how long tasks take. Can help optimize build times.
     require('time-grunt')(grunt);
 
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    require('load-grunt-tasks')(grunt);
 
     var config = {};
 
