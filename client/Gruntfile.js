@@ -23,6 +23,7 @@ module.exports = function (grunt) {
             files: [{
               dot: true,
               src: [
+                '.tmp',
                 '<%= config.dist %>/*',
                 '!<%= config.dist %>/.git*'
               ]
@@ -67,7 +68,7 @@ module.exports = function (grunt) {
             },
             dist: {
               src: ['<%= config.webroot %>/js/{,*/}*.js'],
-              dest: '<%= config.dist %>/built.js'
+              dest: '<%= config.dist %>/js/built.js'
             }
         },
 
@@ -77,6 +78,21 @@ module.exports = function (grunt) {
           }
         },
     
+        copy: {
+          main: {
+            files: [{
+              expand: true,
+              dot: true,
+              cwd: '<%= config.webroot %>',
+              dest: '<%= config.dist %>',
+              src: [
+                '{,*/}*.{ico,png,gif,txt,json}',
+                '{,*/}*.html'
+              ]
+            }]
+          }
+        },
+        
         rev : {
           files: {
             src: [
@@ -92,7 +108,8 @@ module.exports = function (grunt) {
       'htmlmin',
       'concat',
       'uglify',
-      'rev',
+      'copy',
+//      'rev',
       'usemin'
     ];
 
