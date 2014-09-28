@@ -1,8 +1,9 @@
 client/nbproject/private/
 client/node_modules
-client/public_html/bower_components
+client/bower_components
 client/dist
 client/.tmp
+client/public_html/libs/vendor
 
 *.class
 

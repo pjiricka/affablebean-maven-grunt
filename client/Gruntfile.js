@@ -10,7 +10,9 @@ module.exports = function (grunt) {
     // Configurable paths
     var config = {
         webroot: 'public_html',
-        dist: 'dist'
+        dist: 'dist',
+        bower_src: 'bower_components',
+        bower_dist: 'public_html/libs/vendor'
     };
 
     grunt.initConfig({
@@ -25,7 +27,8 @@ module.exports = function (grunt) {
               src: [
                 '.tmp',
                 '<%= config.dist %>/*',
-                '!<%= config.dist %>/.git*'
+                '!<%= config.dist %>/.git*',
+                '<%= config.bower_dist %>/*',
               ]
             }]
           }
@@ -87,7 +90,8 @@ module.exports = function (grunt) {
               dest: '<%= config.dist %>',
               src: [
                 '{,*/}*.{ico,png,gif,txt,json}',
-                '{,*/}*.html'
+                '{,*/}*.html',
+                'libs/**'
               ]
             }]
           }
@@ -99,21 +103,40 @@ module.exports = function (grunt) {
               '<%= config.dist %>/js/{,*/}*.js',
             ]
           }
+        },
+        
+        bowercopy : {
+            options: {
+                srcPrefix: '<%= config.bower_src %>',
+                destPrefix: '<%= config.bower_dist %>'
+            },
+            scripts: {
+                files: {
+                    "jquery": "jquery/dist/jquery.js",
+                    "bootstrap" : "bootstrap/dist/*",
+                    "angular" : "angular/angular.js",
+                    "angular-resource" : "angular-resource/angular-resource.js"
+                }
+            }
         }
+        
     });
     
-    var tasks = [
+    grunt.registerTask('dev', [
       'clean',
+      'bowercopy'
+    ]);
+
+    grunt.registerTask('build', [
+      'dev',
       'useminPrepare',
-      'htmlmin',
+//      'htmlmin',
       'concat',
       'uglify',
       'copy',
 //      'rev',
       'usemin'
-    ];
-
-    grunt.registerTask('build', tasks);
+    ]);
 
     grunt.registerTask('default', ['build']);
 
