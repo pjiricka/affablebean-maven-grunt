@@ -7,79 +7,85 @@ module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
 
-    var config = {};
-
-    config['clean'] = {
-      build: {
-        files: [{
-          dot: true,
-          src: [
-            'dist/*',
-            '!dist/.git*'
-          ]
-        }]
-      }
+    // Configurable paths
+    var config = {
+        webroot: 'public_html',
+        dist: 'dist'
     };
+
+    grunt.initConfig({
+
+        // Project settings
+        config: config,
+
+        clean: {
+          build: {
+            files: [{
+              dot: true,
+              src: [
+                '<%= config.dist %>/*',
+                '!<%= config.dist %>/.git*'
+              ]
+            }]
+          }
+        },
      
-  
-    config['htmlmin'] = {
-      build: {
-        options: {
-          collapseBooleanAttributes: true,
-          removeAttributeQuotes: true,
-          removeRedundantAttributes: true,
-          removeEmptyAttributes: true
+        htmlmin: {
+          build: {
+            options: {
+              collapseBooleanAttributes: true,
+              removeAttributeQuotes: true,
+              removeRedundantAttributes: true,
+              removeEmptyAttributes: true
+            },
+            files: [{
+              expand: true,
+              cwd: '<%= config.webroot %>',
+              src: '{,*/}*.html',
+              dest: '<%= config.dist %>'
+            }]
+          }
         },
-        files: [{
-          expand: true,
-          cwd: 'public_html',
-          src: '{,*/}*.html',
-          dest: 'dist'
-        }]
-      }
-    };
   
-  
-    config['useminPrepare'] = {
-      options: {
-        dest: 'dist'
-      },
-      html: 'public_html/index.html'
-    };
+        useminPrepare: {
+          options: {
+            dest: '<%= config.dist %>'
+          },
+          html: '<%= config.webroot %>/index.html'
+        },
 
-    config['usemin'] = {
-      options: {
-        dirs: ['dist']
-      },
-      html: ['dist/{,*/}*.html']
-    };
-    
-    config['concat'] = {
-        options: {
-          separator: ';'
+        usemin : {
+          options: {
+            dirs: ['<%= config.dist %>']
+          },
+          html: ['<%= config.dist %>/{,*/}*.html']
         },
-        dist: {
-          src: ['public_html/js/{,*/}*.js'],
-          dest: 'dist/built.js'
+    
+        concat : {
+            options: {
+              separator: ';'
+            },
+            dist: {
+              src: ['<%= config.webroot %>/js/{,*/}*.js'],
+              dest: '<%= config.dist %>/built.js'
+            }
+        },
+
+        uglify : {
+          options: {
+            mangle: false
+          }
+        },
+    
+        rev : {
+          files: {
+            src: [
+              '<%= config.dist %>/js/{,*/}*.js',
+            ]
+          }
         }
-      };
-
-    config['uglify'] = {
-      options: {
-        mangle: false
-      }
-    };    
+    });
     
-    config['rev'] = {
-      files: {
-        src: [
-          'dist/js/{,*/}*.js',
-        ]
-      }
-    };
-    
-    grunt.initConfig(config);
-
     var tasks = [
       'clean',
       'useminPrepare',
