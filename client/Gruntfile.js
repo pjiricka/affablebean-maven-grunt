@@ -1,6 +1,10 @@
 'use strict';
 
 module.exports = function (grunt) {
+
+    // Time how long tasks take. Can help optimize build times.
+    require('time-grunt')(grunt);
+
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     var config = {};
@@ -52,12 +56,12 @@ module.exports = function (grunt) {
     
     config['concat'] = {
         options: {
-          separator: ';',
+          separator: ';'
         },
         dist: {
           src: ['public_html/js/{,*/}*.js'],
-          dest: 'dist/built.js',
-        },
+          dest: 'dist/built.js'
+        }
       };
 
     config['uglify'] = {
@@ -87,4 +91,7 @@ module.exports = function (grunt) {
     ];
 
     grunt.registerTask('build', tasks);
+
+    grunt.registerTask('default', ['build']);
+
 };
