@@ -33,24 +33,7 @@ module.exports = function (grunt) {
             }]
           }
         },
-     
-        htmlmin: {
-          build: {
-            options: {
-              collapseBooleanAttributes: true,
-              removeAttributeQuotes: true,
-              removeRedundantAttributes: true,
-              removeEmptyAttributes: true
-            },
-            files: [{
-              expand: true,
-              cwd: '<%= config.webroot %>',
-              src: '{,*/}*.html',
-              dest: '<%= config.dist %>'
-            }]
-          }
-        },
-  
+       
         useminPrepare: {
           options: {
             dest: '<%= config.dist %>'
@@ -110,7 +93,8 @@ module.exports = function (grunt) {
         rev : {
           files: {
             src: [
-              '<%= config.dist %>/js/{,*/}*.js'
+              '<%= config.dist %>/js/{,*/}*.js',
+              '<%= config.dist %>/css/{,*/}*.css'
             ]
           }
         },
@@ -147,12 +131,11 @@ module.exports = function (grunt) {
     grunt.registerTask('release', [
       'build',
       'useminPrepare',
-//      'htmlmin',
       'concat',
       'uglify',
       'cssmin',
       'copy',
-//      'rev',
+      'rev',
       'usemin'
     ]);
 
