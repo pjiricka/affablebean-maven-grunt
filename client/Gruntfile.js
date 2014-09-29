@@ -128,6 +128,13 @@ module.exports = function (grunt) {
                     "angular-resource" : "angular-resource/angular-resource.js"
                 }
             }
+        },
+        
+        karma: {
+          unit: {
+            configFile: 'karma.conf.js',
+            singleRun: true
+          }
         }
         
     });
