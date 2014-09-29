@@ -28,7 +28,7 @@ module.exports = function (grunt) {
                 '.tmp',
                 '<%= config.dist %>/*',
                 '!<%= config.dist %>/.git*',
-                '<%= config.bower_dist %>/*',
+                '<%= config.bower_dist %>/*'
               ]
             }]
           }
@@ -80,6 +80,16 @@ module.exports = function (grunt) {
             mangle: false
           }
         },
+        
+        cssmin: {
+          combine: {
+            files: {
+              '<%= config.dist %>/css/output.css': ['<%= config.webroot %>/css/app.css',
+                                                    '<%= config.webroot %>/css/bootstrap.css',
+                                                    '<%= config.webroot %>/css/bootstrap-responsive.css']
+            }
+          }
+        },
     
         copy: {
           main: {
@@ -100,7 +110,7 @@ module.exports = function (grunt) {
         rev : {
           files: {
             src: [
-              '<%= config.dist %>/js/{,*/}*.js',
+              '<%= config.dist %>/js/{,*/}*.js'
             ]
           }
         },
@@ -122,17 +132,18 @@ module.exports = function (grunt) {
         
     });
     
-    grunt.registerTask('dev', [
+    grunt.registerTask('build', [
       'clean',
       'bowercopy'
     ]);
 
-    grunt.registerTask('build', [
-      'dev',
+    grunt.registerTask('release', [
+      'build',
       'useminPrepare',
 //      'htmlmin',
       'concat',
       'uglify',
+      'cssmin',
       'copy',
 //      'rev',
       'usemin'
